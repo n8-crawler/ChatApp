@@ -1,0 +1,74 @@
+{% extends 'main.html' %} {% block content %}
+
+<style>
+    .container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+</style>
+ 
+<div class="container">
+    <div>
+    <!--Main Navigation-->
+        <h3>Trending Topics</h3>
+        <!-- Sidebar -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <!-- Container wrapper -->
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4">
+                    {% for topic in topics%}
+                    <ul>
+                        <li>
+                            <a href="{%url 'home' %}?q={{topic.name}}" class="list-group-item list-group-item-action py-2 ripple active">
+                                <i class="fas fa-chart-area fa-fw me-3"></i><span>{{topic}}</span>
+                            </a> 
+                        </li>
+                    </ul>
+
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+    </div>
+
+    <div>
+
+        <h3>CHAT ROOMS</h3>
+        <div class="position-relative">
+            <p>
+                <a href="{%url 'create-room'%}"> Create Room</a>
+            </p>
+            <div class="list-group list-group-flush mx-3 mt-4">
+                {% for room in rooms%} 
+                @ {{room.host.username}}
+                <ul>
+                    <li>
+                        <a href="{% url 'room' room.id %}"
+                            class="list-group-item list-group-item-action py-2 ripple active">
+                            <i class="fas fa-chart-area fa-fw me-3"></i><span>{{room.name}}</span>
+                        </a>
+                        {%if request.user == room.host%}
+                        <p>
+                            <a href="{% url 'update-room' room.id %}"
+                                class="list-group-item list-group-item-action py-2 ripple active">
+                                <i class="fas fa-chart-area fa-fw me-3"></i><span>Edit</span>
+                            </a>
+                            &nbsp;&nbsp;
+                            <a href="{% url 'delete-room' room.id %}"
+                                class="list-group-item list-group-item-action py-2 ripple active">
+                                <i class="fas fa-chart-area fa-fw me-3"></i><span>Delete</span>
+                            </a>
+                        </p>
+                        {%endif%}
+                    </li>
+                </ul>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

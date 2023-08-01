@@ -1,0 +1,64 @@
+{% include 'main.html' %}
+
+{% block content %}
+
+<style>
+    .full-container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+    }
+</style>
+<div name="full-container">
+
+    <div>
+        <h1>Room: {{rooms.name}} </h1>
+        <div>
+            <p>
+
+            <h5>Updated: {{rooms.updated|timesince}} earlier</h5>
+            <h5>Host: {{rooms.host.username}} </h5>
+            <h5>Topic: {{ rooms.topic.name}} </h5>
+            <p>{{rooms.description}}</p>
+            <h2>Coversations</h2>
+            ------------------------------------------------------
+            {%for m in messages%}
+            <div>
+                @{{m.user}} - {{m.created | timesince}} ago<br>
+                <p>{{m.body}}</p>
+            </div>
+            {%endfor%}
+            </p>
+        </div>
+
+        {%if user.is_authenticated%}
+        <div>
+            <form method="post" action="">
+                {%csrf_token%}
+                {{form.as_p}}
+                <input type="text" placeholder="write your messages here ..." name="body">
+
+                <input button="submit" type="submit" value="add comment">
+            </form>
+        </div>
+        {%endif%}
+
+
+    </div>
+
+    <div>
+        <h3>Participants: </h3>
+        {%for p in participants%}
+        <div>
+            <ul>
+                <li>{{p.username}}</li>
+            </ul>
+
+        </div>
+        {%endfor%}
+    </div>
+
+
+</div>
+
+{% endblock %}

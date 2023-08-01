@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBud</title>
+</head>
+<body>
+    
+    <nav class="navbar navbar-dark bg-dark">
+        <form method="get" type="text"action="{% url 'home' %}">
+            search:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="q" placeholder="Search...">
+        </form>
+        {%if user.is_authenticated%}
+        <div class="profilelink">
+            <a href="{% url 'profile' user.id%}" class="navbar-brand"> hi {{user.username}}</a>
+        </div>
+        <div class="logoutlink">
+            <a href="{% url 'logout' %}" class="logout" name="logout"> Logout</a>
+        </div>
+        {%else%}
+        <div class="loginlink">
+            <a href="{% url 'login' %}" class="loginlink" name="loginlink"> Login</a>
+        </div>
+        {%endif%}
+
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
