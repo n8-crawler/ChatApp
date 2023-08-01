@@ -20,6 +20,7 @@ def loginform(request):
             User.objects.get(username=username)
             print('USER EXIST')
             return redirect(home)
+        
         except:
             return HttpResponse('<h1>HI U ARE NOT A REGISTERED USER</h1>')
 
