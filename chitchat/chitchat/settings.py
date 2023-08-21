@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'base.apps.BaseConfig',
 
     'rest_framework',
+    'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'corsheaders',
 ]
 
@@ -124,6 +126,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 CORS_ALLOW_ALL_ORIGINS = True
+from datetime import timedelta
+...
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=365),
+    "ROTATE_REFRESH_TOKENS": False,
+}
 
 
 
