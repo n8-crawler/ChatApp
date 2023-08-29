@@ -70,8 +70,8 @@ def home(request):
     return render(request,'home.html',{'rooms':rooms,'topics':topics})
 
 def room(request,pk):
-    rom = Room.objects.get(id=pk)
-    #message is child of room since we have used its foreign key and we can get all messages classes created for the room
+    rom = Room.objects.get(id=pk) 
+    #message has room as foreign key and we can get all messages classes created for the room
     #by using Room.messages_set.all() here Message class is in lowercase and set is a ORM mapper
     messages = rom.messages_set.all()
     participants = rom.participants.all()
